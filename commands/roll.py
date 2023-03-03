@@ -10,7 +10,7 @@ from lightbulb import commands
 @lightbulb.implements(commands.SlashCommand)
 async def roll(ctx: lightbulb.context.Context) -> None:
     
-    player_1  = ctx.options.layer_without_the_ball
+    player_1  = ctx.options.player_without_the_ball
     player_2 = ctx.options.player_with_the_ball
 
     embed = (
@@ -29,16 +29,10 @@ async def roll(ctx: lightbulb.context.Context) -> None:
 
     await ctx.respond(embed)
 
-def fun1():
-    trick = ""
-    roll = [random.randint(1, 8) for _ in range(2)]
-    if roll[0] == 1 and roll[1] == 1:
-        trick = "Trick"
-    resoult = " + ".join(f"{r}" for r in roll) + f" = **{sum(roll)}** | {trick}"
-    return resoult
 
 def throw(value, ball):
     trick = ""
+    roll = []
     if value == "1":
         roll = [random.randint(1,8) for _ in range(2)]
     elif value == "2":
@@ -50,9 +44,12 @@ def throw(value, ball):
         roll =[random.randint(1,3), random.randint(1,3), random.randint(1,4), random.randint(1,6), random.randint(1,8)]
     elif value == "5":
         roll = [random.randint(1,3), random.randint(1,4), random.randint(1,6), random.randint(1,8), random.randint(1,8)]
+    else:
+        resoult = " Zła ilość gwiazdek/złe polecenie -> nie liczba"
+        return resoult
 
     if ball and roll.count(1) == 2:
-        trick = "trick!"
+        trick = "**trick!"
 
     resoult = " + ".join(f"{r}" for r in roll) + f" = **{sum(roll)}** | {trick}"
     return resoult

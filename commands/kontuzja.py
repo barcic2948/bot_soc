@@ -3,13 +3,13 @@ import random
 import hikari
 import lightbulb
 
-@lightbulb.command("strzal", "Rzut na strzal")
+@lightbulb.command("kontuzja", "Rzut na kontuzje")
 @lightbulb.implements(lightbulb.SlashCommand)
-async def strzal(ctx: lightbulb.Context) -> None:
-    #1d12
+async def kontuzja(ctx: lightbulb.Context) -> None:
+    #2d3
     embed = (
         hikari.Embed(
-        title = "Rzut na strzał:",
+        title = "Rzut na kontuzje:",
         colour=hikari.Colour(0x563275)
         )
         .set_footer(
@@ -18,16 +18,16 @@ async def strzal(ctx: lightbulb.Context) -> None:
         )
     )
     embed.add_field(name="Wynik", value=fun(), inline=False)
-    
+
     await ctx.respond(embed)
 
 def fun():
-    roll = [random.randint(1, 12)]
+    roll = [random.randint(1, 3) for _ in range(2)]
     resoult = "**" + " + ".join(f"{r}" for r in roll) + "**"
     return resoult
 
 def load(bot: lightbulb.BotApp):
-    bot.command(strzal)
+    bot.command(kontuzja)
 
 def unload(bot: lightbulb.BotApp):
-    bot.remove_command(bot.get_slash_command("strzal"))
+    bot.remove_command(bot.get_slash_command("kontuzja"))
