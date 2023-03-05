@@ -1,15 +1,13 @@
 import random
-
 import hikari
 import lightbulb
-from lightbulb import commands
 
 @lightbulb.option("player_with_the_ball", "Wybór jakie kości mają być rzucone przez bota dla zawodnika z piłką.")
 @lightbulb.option("player_without_the_ball", "Wybór jakie kości mają być rzucone przez bota dla zawodnika bez piłki.")
 @lightbulb.command("r", "Wykonaj odpowiedni pojedynek.")
-@lightbulb.implements(commands.SlashCommand)
-async def roll(ctx: lightbulb.context.Context) -> None:
-    
+@lightbulb.implements(lightbulb.SlashCommand)
+async def battle(ctx: lightbulb.context.Context) -> None:
+
     player_1  = ctx.options.player_without_the_ball
     player_2 = ctx.options.player_with_the_ball
 
@@ -28,7 +26,6 @@ async def roll(ctx: lightbulb.context.Context) -> None:
     embed.add_field(name="Gracz z piłką", value=f"Gwiazdki: **{player_2}** | Wynik: {throw(player_2, True)}", inline=False)
 
     await ctx.respond(embed)
-
 
 def throw(value, ball):
     trick = ""
@@ -55,8 +52,7 @@ def throw(value, ball):
     return resoult
 
 def load(bot: lightbulb.BotApp) -> None:
-    bot.command(roll)
-
+    bot.command(battle)
 
 def unload(bot: lightbulb.BotApp) -> None:
     bot.remove_command(bot.get_slash_command("r"))
