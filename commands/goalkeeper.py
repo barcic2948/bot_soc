@@ -3,7 +3,7 @@ import hikari
 import random
 
 @lightbulb.option("goalkeeper", "Ilośc rzuconych kości w zależności od siły bramkarza.")
-@lightbulb.command("obrona", "checks that the bot is alive")
+@lightbulb.command("obr", "Rzut na obronę bramkarza")
 @lightbulb.implements(lightbulb.SlashCommand)
 async def obrona(ctx: lightbulb.Context) -> None:
 
@@ -21,7 +21,7 @@ async def obrona(ctx: lightbulb.Context) -> None:
     )
     
     if number_of_stars.isdigit() and int(number_of_stars) < 5:
-        embed.add_field(name="Wynik", value=fun(int(number_of_stars)), inline=False)
+        embed.add_field(name="Wynik dla " + f"**{number_of_stars}** gwiazdek", value=fun(int(number_of_stars)), inline=False)
     else:
         embed.add_field(name="Wynik", value="Niepoprawna wartość podana jako argument funkcji: " + f"**{number_of_stars}**", inline=False)
 
